@@ -3,11 +3,11 @@ sudo apt install openjdk-17-jdk -y
 java -version
 
 ### Mysql installation 
-hcl ```
-sudo apt install mysql-server -y
-sudo systemctl start mysql
-sudo mysql_secure_installation
-```
+
+- sudo apt install mysql-server -y
+- sudo systemctl start mysql
+- sudo mysql_secure_installation
+
 
 
 - mysql -u root -p
@@ -24,14 +24,14 @@ GRANT ALL PRIVILEGES ON mywebapp.* TO 'webappuser'@'localhost';
 -- Apply changes:
 FLUSH PRIVILEGES;
 
-############################
+--------------
 
 LoginServlet.java:
 
 Connection conn = DriverManager.getConnection(
   "jdbc:mysql://localhost:3306/mywebapp", "webappuser", "StrongPass123");
 
-  ##################################
+ ---------------------------
 
   USE mywebapp;
 
