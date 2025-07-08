@@ -2,13 +2,15 @@ sudo apt update
 sudo apt install openjdk-17-jdk -y
 java -version
 
-####################################
+### Mysql installation 
+hcl ```
 sudo apt install mysql-server -y
 sudo systemctl start mysql
 sudo mysql_secure_installation
+```
 
-###########################
-mysql -u root -p
+
+- mysql -u root -p
 
 -- Then create a database (if you haven't):
 CREATE DATABASE mywebapp;
