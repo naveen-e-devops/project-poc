@@ -1,16 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('clone') {
             steps {
-                echo 'Building...'
-                // Add your build commands here
+                echo 'Cloning the repo...'
+                sh 'git clone https://github.com/naveen-e-devops/project-poc.git'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Testing...'
-                // Add your test commands here
+                echo 'Build the code...'
+                sh 'mvn install'
             }
         }
         stage('Deploy') {
