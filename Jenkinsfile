@@ -7,7 +7,7 @@ pipeline {
         stage('clone') {
             steps {
                 echo 'Cloning the repo...'
-                sh 'git clone https://github.com/naveen-e-devops/project-poc.git'
+               // sh 'git clone https://github.com/naveen-e-devops/project-poc.git'
             }
         }
         stage('Build') {
