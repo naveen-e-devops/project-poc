@@ -18,7 +18,7 @@ pipeline {
         }
         stage('nexus-artifact-uploader'){
             steps{
-                nexusArtifactUploader artifacts: [[artifactId: 'web-artifact', classifier: '', file: 'target/MyWebApp.war', type: 'war']], credentialsId: 'nexus-creds', groupId: 'web', nexusUrl: '13.233.129.186:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'web-repo', version: 'v1'
+                nexusArtifactUploader artifacts: [[artifactId: 'web-artifact', classifier: '', file: 'target/MyWebApp.war', type: 'war']], credentialsId: 'nexus-creds', groupId: 'web', nexusUrl: '13.233.129.186:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'web-repo', version: '${BUILD_ID}'
             }
         }
         stage('Deploy') {
