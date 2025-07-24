@@ -16,11 +16,16 @@ pipeline {
                 sh 'mvn install'
             }
         }
+        stage('nexus-artifact-uploader'){
+            steps{
+                nexusArtifactUploader artifacts: [[artifactId: 'web-artifact', classifier: '', file: 'target/MyWebApp.war', type: 'war']], credentialsId: 'nexus-creds', groupId: 'web', nexusUrl: '13.233.129.186:8081/nexus', nexusVersion: 'nexus3', protocol: 'http', repository: 'web-repo', version: 'v1'
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
                 // Add your deployment commands here
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-creds', path: '', url: 'http://3.109.59.153:8080')], contextPath: 'july22', war: 'target/MyWebApp.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-creds', path: '', url: 'http://172.31.1.130:8080')], contextPath: 'july22', war: 'target/MyWebApp.war'
             }
         }
     }
