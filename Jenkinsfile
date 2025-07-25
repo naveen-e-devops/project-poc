@@ -16,9 +16,30 @@ pipeline {
                 sh 'mvn install'
             }
         }
+        stage('CODE ANALYSIS with SONARQUBE') {
+          
+		  environment {
+             scannerHome = tool 'sonarqube-4'
+          }
+
+          steps {
+            withSonarQubeEnv('sonarqube') {
+               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=web-app \
+                   -Dsonar.projectName=web-app \
+                   -Dsonar.projectVersion=1.0 \
+                   -Dsonar.sources=src/ \
+                   -Dsonar.login=admin \
+                   -Dsonar.password=admin123'''
+            }
+
+            //timeout(time: 1, unit: 'MINUTES') {
+            //   waitForQualityGate abortPipeline: false
+           // }
+          }
+        }
         stage('nexus-artifact-uploader'){
             steps{
-                nexusArtifactUploader artifacts: [[artifactId: 'web-artifact', classifier: '', file: 'target/MyWebApp.war', type: 'war']], credentialsId: 'nexus-creds', groupId: 'web', nexusUrl: '13.233.129.186:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'web-repo', version: '${BUILD_ID}'
+                nexusArtifactUploader artifacts: [[artifactId: 'web-artifact', classifier: '', file: 'target/MyWebApp.war', type: 'war']], credentialsId: 'nexus-creds', groupId: 'web', nexusUrl: '13.232.129.50:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'web-repo', version: '${BUILD_ID}'
             }
         }
         stage('Deploy') {
